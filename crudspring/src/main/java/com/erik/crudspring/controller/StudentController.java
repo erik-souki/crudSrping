@@ -11,6 +11,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 
 
@@ -25,7 +26,7 @@ public class StudentController {
 
 
     @GetMapping
-    public List<Student> list(){
+    public @ResponseBody List<Student> list(){
         return studentRepository.findAll();
     }
     
