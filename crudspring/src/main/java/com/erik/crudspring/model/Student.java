@@ -22,6 +22,6 @@ public class Student {
     private String name;
 
     @Column(length = 200, nullable = false)
-    private long ra;
+    private String ra;
 
 }
