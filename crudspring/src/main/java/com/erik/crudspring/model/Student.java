@@ -22,6 +22,9 @@ public class Student {
     private String name;
 
     @Column(length = 200, nullable = false)
-    private String ra;
+    private long ra;
+
+    @Column(length = 200, nullable = false)
+    private String team;
 
 }
