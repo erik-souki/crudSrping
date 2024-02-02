@@ -5,16 +5,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.erik.crudspring.model.Student;
 import com.erik.crudspring.repository.StudentRepository;
 
-import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 
 
-@Validated
+
 @RestController
 @RequestMapping("/api/student")
 @AllArgsConstructor
@@ -47,7 +43,7 @@ public class StudentController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Student> findbyId(@PathVariable @NotNull @Positive Long id) {
+    public ResponseEntity<Student> findbyId(@PathVariable Long id) {
         return studentRepository.findById(id)
             .map(recordFound -> ResponseEntity.ok().body(recordFound))
             .orElse(ResponseEntity.notFound().build());
@@ -59,7 +55,7 @@ public class StudentController {
     //@RequestMapping(method = RequestMethod.POST)
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Student create(@RequestBody @Valid Student student){
+    public Student create(@RequestBody Student student){
         //System.out.println(student.getName());
         return studentRepository.save(student);
         //return ResponseEntity.status(HttpStatus.CREATED)
@@ -68,7 +64,7 @@ public class StudentController {
 
 
     @PutMapping("/{id}")
-    public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody @Valid Student student) {
+    public ResponseEntity<Student> update(@PathVariable Long id, @RequestBody Student student) {
         return studentRepository.findById(id)
         .map(recordFound -> {
             recordFound.setName(student.getName());
@@ -81,7 +77,7 @@ public class StudentController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> delete(@PathVariable @NotNull @Positive Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         return studentRepository.findById(id)
         .map(recordFound -> {
             studentRepository.deleteById(id);
