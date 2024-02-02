@@ -23,6 +23,7 @@ public class CrudspringApplication {
 			Student s = new Student();
 			s.setName("Arthur");
 			s.setRa(012);
+			s.setTeam("Amarelo");
 
 			studentRepository.save(s);
 		};

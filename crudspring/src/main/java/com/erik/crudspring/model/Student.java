@@ -24,4 +24,7 @@ public class Student {
     @Column(length = 200, nullable = false)
     private long ra;
 
+    @Column(length = 200, nullable = false)
+    private String team;
+
 }
