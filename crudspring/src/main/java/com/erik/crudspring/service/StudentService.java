@@ -45,23 +45,21 @@ public class StudentService {
         return studentRepository.save(student);
     }
 
-    public Optional<Student> update( @NotNull @ Positive Long id, @Valid Student student) {
+    public Student update( @NotNull @ Positive Long id, @Valid Student student) {
         return studentRepository.findById(id)
         .map(recordFound -> {
             recordFound.setName(student.getName());
             recordFound.setRa(student.getRa());
             recordFound.setTeam(student.getTeam());
             return studentRepository.save(recordFound);
-
-        });
+        }).orElseThrow(() -> new RecordNotFoundException(id));
     }
-    public boolean delete(@PathVariable @NotNull @Positive Long id) {
-        return studentRepository.findById(id)
-        .map(recordFound -> {
-            studentRepository.deleteById(id);
-            return true;
-        })
-        .orElse(false);
+
+    public void delete(@PathVariable @NotNull @Positive Long id) {
+        studentRepository.delete(studentRepository.findById(id)
+                .orElseThrow(() -> new RecordNotFoundException(id)));
+
+
     }
 
 
