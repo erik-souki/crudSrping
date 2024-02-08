@@ -2,7 +2,7 @@ package com.erik.crudspring.controller;
 
 import org.springframework.web.bind.annotation.RestController;
 
-import com.erik.crudspring.model.Student;
+import com.erik.crudspring.dto.StudentDTO;
 
 import com.erik.crudspring.service.StudentService;
 
@@ -45,23 +45,24 @@ public class StudentController {
 
 
     @GetMapping
-    public @ResponseBody List<Student> list() {
+    public List<StudentDTO> list() {
         return studentService.list();
     }
 
     @GetMapping("/{id}")
-    public Student findById(@PathVariable @NotNull @Positive Long id) {
+    public StudentDTO findById(@PathVariable @NotNull @Positive Long id) {
         return studentService.findById(id);
     }
 
     @PostMapping
     @ResponseStatus(code = HttpStatus.CREATED)
-    public Student create(@RequestBody @Valid Student student){
+    public StudentDTO create(@RequestBody @Valid @NotNull StudentDTO student){
         return studentService.create(student);
     }
 
     @PutMapping("/{id}")
-    public Student update(@PathVariable @NotNull @ Positive Long id, @RequestBody @Valid Student student) {
+    public StudentDTO update(@PathVariable @NotNull @ Positive Long id,
+            @RequestBody @Valid @NotNull StudentDTO student) {
         return studentService.update(id,student);
     }
 
