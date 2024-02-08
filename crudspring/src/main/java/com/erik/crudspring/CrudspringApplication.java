@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
 import com.erik.crudspring.model.Student;
+import com.erik.crudspring.model.Times;
 import com.erik.crudspring.repository.StudentRepository;
 
 @SpringBootApplication
@@ -24,6 +25,12 @@ public class CrudspringApplication {
 			s.setName("Arthur");
 			s.setRa(012);
 			s.setTeam("Amarelo");
+
+			Times t = new Times();
+			t.setTimeOne("amarelo");
+			t.setTimeTwo("azul");
+			t.setStudent(s);
+			s.getTimes().add( t);
 
 			studentRepository.save(s);
 		};
