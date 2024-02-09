@@ -46,4 +46,22 @@ public class Student {
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "student")
     //@JoinColumn(name = "student_id")
     private List<Times> times = new ArrayList<>();
+        // Method to set the composite team
+        public void setCompositeTeam(Times compositeTeam) {
+            // Clear existing composite team, if any
+            this.times.clear();
+            
+            // Add the new composite team
+            if (compositeTeam != null) {
+                this.times.add(compositeTeam);
+            }
+        }
+    
+        // Method to get the composite team
+        public Times getCompositeTeam() {
+            if (!times.isEmpty()) {
+                return times.get(0);
+            }
+            return null;
+        }
 }
