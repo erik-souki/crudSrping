@@ -30,7 +30,7 @@ public class CrudspringApplication {
 			t.setTimeOne("amarelo");
 			t.setTimeTwo("azul");
 			t.setStudent(s);
-			s.getTimes().add( t);
+			s.setTimes(t);
 
 			studentRepository.save(s);
 		};

@@ -1,8 +1,5 @@
 package com.erik.crudspring.model;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.hibernate.validator.constraints.Length;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -10,11 +7,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
@@ -43,25 +40,10 @@ public class Student {
     @Column(length = 20, nullable = false)
     private String team;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "student")
-    //@JoinColumn(name = "student_id")
-    private List<Times> times = new ArrayList<>();
-        // Method to set the composite team
-        public void setCompositeTeam(Times compositeTeam) {
-            // Clear existing composite team, if any
-            this.times.clear();
-            
-            // Add the new composite team
-            if (compositeTeam != null) {
-                this.times.add(compositeTeam);
-            }
-        }
-    
-        // Method to get the composite team
-        public Times getCompositeTeam() {
-            if (!times.isEmpty()) {
-                return times.get(0);
-            }
-            return null;
-        }
+    // @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "student")
+    // //@JoinColumn(name = "student_id")
+    // private List<Times> times = new ArrayList<>();
+    @OneToOne( fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "student")
+    //@JoinColumn(name = "student_id", nullable = false)
+    private Times times;
 }

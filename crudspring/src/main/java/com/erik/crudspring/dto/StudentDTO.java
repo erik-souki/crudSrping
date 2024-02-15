@@ -15,7 +15,7 @@ public record StudentDTO(
     @NotBlank @NotNull @Length(min = 3, max = 60) String name,
     @NotNull long ra,
     @NotBlank @NotNull String team,
-    List<TimesDTO> times) {
+    TimesDTO times) {
 
 
     
